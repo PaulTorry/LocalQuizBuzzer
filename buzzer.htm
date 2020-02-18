@@ -1,0 +1,108 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The LIS Buzzer Program</title>
+  <meta name="description" content="Local Quiz Buzzer">
+  <meta name="author" content="Paul Torrington">
+
+<style>
+
+body {
+  background-color: linen;
+}
+
+p {
+  margin-left: 40px;
+}
+
+#previous{
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #757575;
+}
+#displayCurrent1st{
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 46px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+
+}
+#displayCurrent{
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+
+}
+
+
+</style>
+
+
+</head>
+
+<body>
+  <p id="previous">HI</p>
+  <p id="displayCurrent1st">HI</p>
+  <p id="displayCurrent">HI</p>
+
+  <script>
+
+
+  function keypress(e){
+    let player = keyss.indexOf(e.code) + 1
+    if (debug) console.log(player, e);
+    if (debug) console.log(teams[player -1]);
+
+    if(player && current.indexOf(teams[player -1]) === -1){
+      current.push(teams[player -1])
+    }
+    if (debug) console.log(current);
+    display(current, history)
+  //  document.body.querySelector("#displayCurrent").innerHTML = current;
+
+    if(e.code === "Space" && current.length >= 1){
+    if (debug)   console.log("Space");
+    console.log(current);
+      history = current;
+      current = [];
+      display(current, history)
+  //    document.body.querySelector("#displayCurrent").innerHTML = current;
+  //    document.body.querySelector("#previous").innerHTML = history;
+  }
+
+  function display(current, history){
+    document.body.querySelector("#previous").innerHTML = history;
+
+    document.body.querySelector("#displayCurrent1st").innerHTML = current[0] || "<sub>waiting</sub>  ";
+    document.body.querySelector("#displayCurrent").innerHTML = current.slice(1,99);
+    let col = bgcols[current[0]] || "white "
+    document.body.style.backgroundColor = col;
+
+  }
+
+
+
+
+  }
+  let debug = false;
+  let keyss = ["KeyQ", "KeyW","KeyE"]
+  let teams = [" red snappers ", "  green      ", "yellow marlin "]
+  let bgcols = {" red snappers ":"red" , "  green      ":"green", "yellow marlin ":"yellow"}
+  let current = [];
+  let history = [];
+
+   document.body.addEventListener("keypress", keypress) ;
+
+
+
+
+
+  </script>
+</body>
+</html>
