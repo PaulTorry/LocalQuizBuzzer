@@ -57,7 +57,7 @@ p {
      console.log(e.button);
      let player = e.button;
     if(      current.indexOf(teams[e.button]) === -1){
-      audio.play();
+      if (current.length === 0) audio.play();
       current.push(teams[e.button])
     }
     if (debug) console.log(current);
@@ -72,7 +72,7 @@ p {
     if (debug) console.log(teams[player -1]);
 
     if(player && current.indexOf(teams[player -1]) === -1){
-      audio.play();
+      if (current.length === 0) audio.play();
       current.push(teams[player -1])
     }
     if (debug) console.log(current);
@@ -112,8 +112,8 @@ p {
   audio.play();
   let debug = false;
   let keyss = ["KeyQ", "KeyW","KeyE"]
-  let teams = [" red snappers ", "  green      ", "yellow marlin "]
-  let bgcols = {" red snappers ":"red" , "  green      ":"green", "yellow marlin ":"yellow"}
+  let teams = [" Red Snappers ", "  Green Morays ", " Blue Marlin "]
+  let bgcols = {" Red Snappers ":"red" , "  Green Morays ":"green", " Blue Marlin ":"blue"}
   let current = [];
   let history = [];
 
