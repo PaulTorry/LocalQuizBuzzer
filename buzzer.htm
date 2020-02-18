@@ -53,6 +53,18 @@ p {
 
   <script>
 
+  function mousedown(e){
+     console.log(e.button);
+     let player = e.button;
+    if(      current.indexOf(teams[e.button]) === -1){
+      audio.play();
+      current.push(teams[e.button])
+    }
+    if (debug) console.log(current);
+    stopEvent(e);
+    display(current, history)
+  }
+
 
   function keypress(e){
     let player = keyss.indexOf(e.code) + 1
@@ -60,6 +72,7 @@ p {
     if (debug) console.log(teams[player -1]);
 
     if(player && current.indexOf(teams[player -1]) === -1){
+      audio.play();
       current.push(teams[player -1])
     }
     if (debug) console.log(current);
@@ -75,6 +88,7 @@ p {
   //    document.body.querySelector("#displayCurrent").innerHTML = current;
   //    document.body.querySelector("#previous").innerHTML = history;
   }
+}
 
   function display(current, history){
     document.body.querySelector("#previous").innerHTML = history;
@@ -87,9 +101,15 @@ p {
   }
 
 
-
-
+  function stopEvent(event){
+   if(event.preventDefault != undefined)
+    event.preventDefault();
+   if(event.stopPropagation != undefined)
+    event.stopPropagation();
   }
+
+  let audio = new Audio('BB.wav');
+  audio.play();
   let debug = false;
   let keyss = ["KeyQ", "KeyW","KeyE"]
   let teams = [" red snappers ", "  green      ", "yellow marlin "]
@@ -97,10 +117,14 @@ p {
   let current = [];
   let history = [];
 
-   document.body.addEventListener("keypress", keypress) ;
-
-
-
+   document.addEventListener("keypress", keypress) ;
+   document.addEventListener("mousedown", mousedown) ;
+  // document.addEventListener("onContextMenu", (e) => false) ;
+   document.oncontextmenu = function(e){
+  //  var evt = new Object({keyCode:93});
+    stopEvent(e);
+  //  keyboardUp(evt);
+   }
 
 
   </script>
